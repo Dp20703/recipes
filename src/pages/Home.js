@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../common/Header'
+import Footer from '../common/Footer';
 
 const Home = () => {
     return (
@@ -7,7 +8,7 @@ const Home = () => {
             <Header />
             <HomeBanner />
             <SideBar />
-            {/* <Func /> */}
+            <Footer />
         </>
     )
 }
