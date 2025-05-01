@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../common/Header'
 import Footer from '../common/Footer';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
     return (
@@ -112,10 +113,10 @@ function SideBar() {
     );
 }
 function ReciepCard() {
+    const navigate = useNavigate();
     const [data, setData] = useState([]);
     function fetchData() {
         fetch("https://dummyjson.com/recipes").then((res) => res.json()).then((data) => setData(data.recipes))
-
     }
     useEffect(() => fetchData(),
         []
@@ -162,7 +163,7 @@ function ReciepCard() {
                                         <div className="uk-width-expand uk-text-right">by John Keller</div>
                                     </div>
                                 </div>
-                                <a href="recipe.html" className="uk-position-cover" />
+                                <a onClick={() => navigate(`/recipe/${data.id}`)} className="uk-position-cover" />
                             </div>
                         </>
                     })
