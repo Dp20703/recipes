@@ -53,7 +53,7 @@ function MainRecipe() {
                                     <div>
                                         <span data-uk-icon="icon: future; ratio: 1.4" />
                                         <h5 className="uk-text-500 uk-margin-small-top uk-margin-remove-bottom">Total Time</h5>
-                                        <span className="uk-text-small">{data.cookTimeMinutes} mins</span>
+                                        <span className="uk-text-small">{data.cookTimeMinutes + data.prepTimeMinutes} mins</span>
                                     </div>
                                     <div>
                                         <span data-uk-icon="icon: users; ratio: 1.4" />
