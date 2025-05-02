@@ -2,9 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
-    const getRandomNumber = () => {
-        return Math.floor(Math.random() * 30) + 1;
-    }
     return (
         <>
             <nav className="uk-navbar-container uk-letter-spacing-small">
@@ -14,7 +11,7 @@ const Header = () => {
                             <Link className="uk-navbar-item uk-logo" to="/">Kocina</Link>
                             <ul className="uk-navbar-nav uk-visible@m uk-margin-large-left">
                                 <li className="uk-active"><Link to="/">Home</Link></li>
-                                <li><Link to={`/recipe/${getRandomNumber()}`}>Recipe</Link></li>
+                                <li><Link to="/allrecipes">Recipe</Link></li>
                                 <li><Link to="/search">Search</Link></li>
                                 <li><Link to="/contact">Contact</Link></li>
                             </ul>

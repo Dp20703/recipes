@@ -1,7 +1,6 @@
 import React from 'react'
 import Header from '../common/Header'
 import Footer from '../common/Footer'
-import Recipe from './Recipe'
 
 const Search = () => {
     return (
