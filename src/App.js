@@ -13,14 +13,23 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+          
+          {/* Home */}
           <Route path="/" element={<Home />} />
-          <Route path='/:mealname' element={<Home />} />
+          <Route path='/meal/:mealname' element={<Home />} />
+          <Route path='/tag/:tagname' element={<Home />} />
+
+          {/* RecipeDetails */}
+          <Route path="/recipe/:id" element={<Recipe />} />
+
+          {/* Recipe */}
+          <Route path='/allrecipes' element={<Allrecipes />} />
+          <Route path='/allrecipes/meal/:mealname' element={<Allrecipes />} />
+          <Route path='/allrecipes/tag/:tagname' element={<Allrecipes />} />
+
           <Route path="/contact" element={<Contact />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
-          <Route path="/recipe/:id" element={<Recipe />} />
-          <Route path='/allrecipes' element={<Allrecipes />} />
-          <Route path='/allrecipes/:mealname' element={<Allrecipes />} />
           <Route path="/search" element={<Search />} />
         </Routes>
       </BrowserRouter>

@@ -8,7 +8,7 @@ const Home = () => {
         <>
             <Header />
             <HomeBanner />
-            <SideBar pathname='/' />
+            <SideBar pathname='/' limit='6' />
             <Footer />
         </>
     )
@@ -41,29 +41,48 @@ function HomeBanner() {
 
 export function SideBar(props) {
     const navigate = useNavigate();
+    const [tag, setTag] = useState([]);
+    const fetchTag = () => {
+        fetch('https://dummyjson.com/recipes/tags').then((data) => data.json()).then((data) => setTag(data))
+    }
+    useEffect(
+        () => fetchTag(), []
+    )
     return (
         <>
-            <div className="uk-section uk-section-default">
+            <div className="uk-section uk-section-default overflow-y-hidden">
                 <div className="uk-container">
                     <div data-uk-grid>
                         <div className="uk-width-1-4@m sticky-container">
                             <div data-uk-sticky="offset: 100; bottom: true; media: @m;">
                                 <h2>Recipes</h2>
                                 <ul className="uk-nav-default uk-nav-parent-icon uk-nav-filter uk-margin-medium-top" data-uk-nav>
-                                    <li className="uk-parent  uk-open">
+                                    <li className="uk-parent">
                                         <a href="#">Meal Type</a>
                                         <ul className="uk-nav-sub">
-                                            <li><a onClick={() => navigate(`${props.pathname}snacks`)}>Snacks</a></li>
-                                            <li><a onClick={() => navigate(`${props.pathname}dessert`)}>Dessert</a></li>
-                                            <li><a onClick={() => navigate(`${props.pathname}dinner`)}>Dinner</a></li>
-                                            <li><a onClick={() => navigate(`${props.pathname}lunch`)}>Lunch</a></li>
+                                            <li><a onClick={() => navigate(`${props.pathname}meal/snacks`)}>Snacks</a></li>
+                                            <li><a onClick={() => navigate(`${props.pathname}meal/dessert`)}>Dessert</a></li>
+                                            <li><a onClick={() => navigate(`${props.pathname}meal/dinner`)}>Dinner</a></li>
+                                            <li><a onClick={() => navigate(`${props.pathname}meal/lunch`)}>Lunch</a></li>
+                                        </ul>
+                                    </li>
+                                    <li className="uk-parent">
+                                        <a href="#">Tags</a>
+                                        <ul className="uk-nav-sub">
+                                            <li className='d-flex flex-wrap gap-1'>
+                                                {
+                                                    tag.map((ele, idx) =>
+                                                        <p key={idx} className='badge bg-secondary p-2 text-light' onClick={() => navigate(`${props.pathname}tag/${ele}`)}>{ele}</p>
+                                                    )
+                                                }
+                                            </li>
                                         </ul>
                                     </li>
 
                                 </ul>
                             </div>
                         </div>
-                        <ReciepCard />
+                        <ReciepCard limit={props.limit} />
                     </div>
                 </div >
             </div >
@@ -71,19 +90,23 @@ export function SideBar(props) {
         </>
     );
 }
-function ReciepCard() {
+function ReciepCard(props) {
     const navigate = useNavigate();
     const [data, setData] = useState([]);
-    const { mealname } = useParams();
+    const { mealname, tagname } = useParams();
+    const limit = props.limit;
     function fetchData() {
         let url = 'https://dummyjson.com/recipes';
         if (mealname) {
             url = `${url}/meal-type/${mealname}`
         }
+        if (tagname) {
+            url = `${url}/tag/${tagname}`
+        }
         fetch(url).then((res) => res.json()).then((data) => setData(data.recipes))
     }
     useEffect(() => fetchData(),
-        [mealname]
+        [mealname, tagname]
     )
     // console.log(data);
     return (
@@ -105,7 +128,7 @@ function ReciepCard() {
             </div>
             <div className="uk-child-width-1-2 uk-child-width-1-3@s" data-uk-grid>
                 {
-                    data.map((data, index) => {
+                    (limit ? data.slice(0, limit) : data).map((data, index) => {
                         return <>
                             <div key={index} className="uk-card">
                                 <div className="uk-card-media-top uk-inline uk-light">
