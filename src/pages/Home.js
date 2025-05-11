@@ -93,7 +93,7 @@ export function SideBar(props) {
 function ReciepCard(props) {
     const navigate = useNavigate();
     const [data, setData] = useState([]);
-    const { mealname, tagname } = useParams();
+    const { mealname, tagname, search } = useParams();
     const limit = props.limit;
     function fetchData() {
         let url = 'https://dummyjson.com/recipes';
@@ -103,11 +103,16 @@ function ReciepCard(props) {
         if (tagname) {
             url = `${url}/tag/${tagname}`
         }
+        if (search) {
+            url = `${url}/search?q=${search}`
+            console.log("Url of Search:", url);
+        }
         fetch(url).then((res) => res.json()).then((data) => setData(data.recipes))
     }
     useEffect(() => fetchData(),
-        [mealname, tagname]
+        [mealname, tagname, search]
     )
+    console.log(("Data is: ", data));
     // console.log(data);
     return (
         <div className="uk-width-expand@m">

@@ -13,7 +13,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          
+
           {/* Home */}
           <Route path="/" element={<Home />} />
           <Route path='/meal/:mealname' element={<Home />} />
@@ -26,6 +26,7 @@ function App() {
           <Route path='/allrecipes' element={<Allrecipes />} />
           <Route path='/allrecipes/meal/:mealname' element={<Allrecipes />} />
           <Route path='/allrecipes/tag/:tagname' element={<Allrecipes />} />
+          <Route path='/allrecipes/recipesearch/:search' element={<Allrecipes />} />
 
           <Route path="/contact" element={<Contact />} />
           <Route path="/signup" element={<SignUp />} />

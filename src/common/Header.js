@@ -1,7 +1,14 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
+    const navigate = useNavigate();
+    const [search, setSearch] = useState("");
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        navigate(`/allrecipes/recipesearch/${search}`)
+    }
     return (
         <>
             <nav className="uk-navbar-container uk-letter-spacing-small">
@@ -20,8 +27,8 @@ const Header = () => {
                             <div>
                                 <Link className="uk-navbar-toggle" data-uk-search-icon to="#" />
                                 <div className="uk-drop uk-background-default" data-uk-drop="mode: click; pos: left-center; offset: 0">
-                                    <form className="uk-search uk-search-navbar uk-width-1-1">
-                                        <input className="uk-search-input uk-text-demi-bold" type="search" placeholder="Search..." autoFocus />
+                                    <form onSubmit={handleSubmit} className="uk-search uk-search-navbar uk-width-1-1">
+                                        <input className="uk-search-input uk-text-demi-bold" type="search" onChange={(e) => setSearch(e.target.value)} placeholder="Search..." autoFocus />
                                     </form>
                                 </div>
                             </div>
