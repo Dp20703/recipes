@@ -112,8 +112,6 @@ function ReciepCard(props) {
     useEffect(() => fetchData(),
         [mealname, tagname, search]
     )
-    console.log(("Data is: ", data));
-    // console.log(data);
     return (
         <div className="uk-width-expand@m">
             <div data-uk-grid>
